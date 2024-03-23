@@ -56,6 +56,25 @@ async function run() {
         const result = await projectsCollections.deleteOne(query);
         res.send(result)
     });
+    app.put('/projects/:id',async(req,res)=>{
+        const item = req.body;
+        const id = req.params.id;
+        const filter = {_id : new ObjectId(id)}
+        const updatedDoc={
+          $set:{
+            author : item.author,
+            width : item.width,
+            height: item.height,
+            url: item.recipe,
+            image: item.url,
+            download_url: item.download_url,
+            title: item.title,
+            details: item.details,
+          }
+        }
+        const result = await projectsCollections.updateOne(filter,updatedDoc);
+        res.send(result);
+      })
 
 
 
